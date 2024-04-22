@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     /* background-color: rgb(140, 140, 232); */
+    flex-wrap: wrap;
 }
 .signin-left-section{
     width: 50%;
@@ -65,6 +66,8 @@
     background-color: #3A244A;
     font-weight: 600;
     margin-top: .7rem;
+    color: #ffffff;
+
 }
 .signUp_button{
     width: 100%;
