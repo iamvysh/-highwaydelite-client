@@ -7,34 +7,32 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-
 const SignUp = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState<Boolean>(false);
-  const [Retypepassword,setRetypepassword]=useState<Boolean>(false)
+  const [Retypepassword, setRetypepassword] = useState<Boolean>(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const toggleRetypepassword=()=>{
-    setRetypepassword(!Retypepassword)
-  }
-  
-  const handleSubmit = async (event:any) => {
+  const toggleRetypepassword = () => {
+    setRetypepassword(!Retypepassword);
+  };
+
+  const handleSubmit = async (event: any) => {
     event.preventDefault(); // Prevent default form submission behavior
-     
+
     // Retrieve form data
     const formData = new FormData(event.target);
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
     const password = formData.get("password");
     const retypePassword = formData.get("retypePassword");
-    const contactMode:string = "email";
+    const contactMode: string = "email";
     const email = formData.get("email");
-     console.log(firstName,email);
+    console.log(firstName, email);
 
-     
     // Perform form validation
     const errors = [];
     if (!firstName) {
@@ -54,11 +52,10 @@ const SignUp = () => {
     if (!email) {
       errors.push("Email is required");
     }
-    
 
     if (errors.length > 0) {
       // If there are errors, display them using Toastify
-      errors.forEach((error:any) => {
+      errors.forEach((error: any) => {
         toast.error(error);
       });
       return;
@@ -66,33 +63,38 @@ const SignUp = () => {
 
     // Send form data to the backend server using Axios
     try {
-      const response = await axios.post("http://localhost:3000/register", {
-        firstName,
-        lastName,
-        password,
-        contactMode,
-        email,
-      });
+      const response = await axios.post(
+        "https://highwaydelite-server.onrender.com/api/register",
+        {
+          firstName,
+          lastName,
+          password,
+          contactMode,
+          email,
+        }
+      );
 
-      if (response.status === 200) {
-        // If the registration is successful, display success toast and redirect
-        toast.success("Registration successful!");
-        navigate("/success"); // Example navigation
+      console.log(response, "response");
+
+      if (response && response.status === 201) {
+        // If the registration is successful, display success toast and redirect  to otp verification page
+        toast.success(response.data.message);
+        await localStorage.setItem("userEmail", response.data.data);
+        navigate("/verify"); //  navigation
       } else {
         // Handle errors if registration fails
         toast.error("Registration failed");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       // Handle errors if request fails
       toast.error("Error occurred");
       console.error("Error:", error);
     }
   };
 
-
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="signup-container">
         <div className="left-section">
           <img src={Image} alt="image" height="100%" width="100%" />
@@ -106,7 +108,7 @@ const SignUp = () => {
               <a
                 href=""
                 // target="_blank"
-                onClick={()=>navigate("/signin")}
+                onClick={() => navigate("/signin")}
                 rel="noopener noreferrer"
                 style={{
                   color: "#3A244A",
@@ -119,8 +121,20 @@ const SignUp = () => {
             </div>
             <div className="form-wrapper-bottom">
               <form onSubmit={handleSubmit}>
-                <input type="text" name="firstName" id="" placeholder="First Name" required />
-                <input type="text" name="lastName" id="" placeholder="Last Name" required />
+                <input
+                  type="text"
+                  name="firstName"
+                  id=""
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  id=""
+                  placeholder="Last Name"
+                  required
+                />
 
                 <div className="password-container">
                   <input
