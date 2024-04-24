@@ -29,7 +29,11 @@ const Otp = () => {
       if (response && response.status === 200) {
         // If OTP verification is successful, display success message and navigate to signin page
         toast.success(response.data.message);
-        navigate("/signin");
+        setTimeout(() => {
+          navigate("/signin"); // navigation after a delay
+        }, 3000)
+        
+        
       }
     } catch (error:any) {
       console.log(error);

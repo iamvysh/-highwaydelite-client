@@ -34,7 +34,15 @@ const SignIn = () => {
         // If login is successful, display success message, save token in local storage, and navigate to home page
         toast.success("Login Successfull");
         localStorage.setItem("userToken", response.data.data);
-        navigate("/");
+        setTimeout(() => {
+          navigate("/"); // navigation after a delay
+        }, 3000)
+       
+       
+        
+
+
+
       }
     } catch (error: any) {
       // Handling different error cases

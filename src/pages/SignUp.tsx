@@ -56,7 +56,7 @@ const SignUp = () => {
     if (errors.length > 0) {
       // If there are errors, display them using Toastify
       errors.forEach((error: any) => {
-        toast.error(error);
+       toast.error(error);
       });
       return;
     }
@@ -78,9 +78,11 @@ const SignUp = () => {
 
       if (response && response.status === 201) {
         // If the registration is successful, display success toast and redirect  to otp verification page
-        toast.success(response.data.message);
+        await  toast.success(response.data.message);
         await localStorage.setItem("userEmail", response.data.data);
-        navigate("/verify"); //  navigation
+        setTimeout(() => {
+          navigate("/verify"); // navigation after a delay
+        }, 3000); //  navigation
       } else {
         // Handle errors if registration fails
         toast.error("Registration failed");
