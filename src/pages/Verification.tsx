@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/otp.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,9 @@ const Otp = () => {
   const [second, setSecond] = useState(null);
   const [third, setThird] = useState(null);
   const [fourth, setFourth] = useState(null); // Corrected typo in variable name
-  const email = localStorage.getItem("userEmail");
 
   // Function to handle form submission
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event:any) => {
     try {
       event.preventDefault();
       const otpCode = `${first}${second}${third}${fourth}`;
@@ -32,7 +31,7 @@ const Otp = () => {
         toast.success(response.data.message);
         navigate("/signin");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
       // Handling incorrect OTP error
       if (error.response.status === 403) {
@@ -71,25 +70,25 @@ const Otp = () => {
               type="text"
               name="first"
               maxLength={1}
-              onChange={(e) => setFirst(e.target.value)}
+              onChange={(e:any) => setFirst(e.target.value)}
             />
             <input
               type="text"
               name="second"
               maxLength={1}
-              onChange={(e) => setSecond(e.target.value)}
+              onChange={(e:any) => setSecond(e.target.value)}
             />
             <input
               type="text"
               name="third"
               maxLength={1}
-              onChange={(e) => setThird(e.target.value)}
+              onChange={(e:any) => setThird(e.target.value)}
             />
             <input
               type="text"
               name="fourth"
               maxLength={1}
-              onChange={(e) => setFourth(e.target.value)}
+              onChange={(e:any) => setFourth(e.target.value)}
             />
           </div>
           {/* Button to verify the OTP */}

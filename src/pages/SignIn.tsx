@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "../styles/signin.css";
 import Image from "../assets/signIn.png";
 import eyeClosed from "../assets/eye-close-svgrepo-com.svg";

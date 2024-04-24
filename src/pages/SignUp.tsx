@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "../styles/signup.css";
 import Image from "../assets/signUp.png";
 import eyesOpen from "../assets/browse-svgrepo-com.svg";
